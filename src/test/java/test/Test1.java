@@ -2,9 +2,7 @@ package test;
 
 import base.TestBase;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.AdvancedOperationsMenu;
 import pages.MainPage;
 
@@ -19,12 +17,12 @@ public class Test1 extends TestBase {
     @Test
     public void test1() {
         MainPage.waitForPageVisibility();
+        System.out.println(MainPage.getFormula());
         Assert.assertEquals(MainPage.getCurrentMode(), "RAD");
-    }
-    @Test
-    public void test2() {
-        MainPage.openAdvancedOperationsPad();
-        AdvancedOperationsMenu.waitForPageVisibility();
+        MainPage.openAdvancedOperations();
+        AdvancedOperationsMenu.changeDegRadMode();
+        MainPage.closeAdvancedOperations();
+        Assert.assertEquals(MainPage.getCurrentMode(), "DEG");
     }
 
     @AfterTest

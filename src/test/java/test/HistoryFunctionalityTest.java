@@ -1,2 +1,4 @@
-package test;public class HistoryFunctionalityTest {
+package test;
+
+public class HistoryFunctionalityTest {
 }

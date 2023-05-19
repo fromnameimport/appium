@@ -92,7 +92,6 @@ public class MainPage extends TestBase {
                 case ".": decPoint.click(); break;
                 case "-": sub.click(); break;
             }
-            System.out.println(s);
         }
     }
     public static void enterBasicOperator(String operator) {
@@ -110,6 +109,13 @@ public class MainPage extends TestBase {
                 .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
                 .release()
                 .perform();
+    }
+
+    //operations
+    public static String subtract(String num1, String num2) {
+        if (num1.contains(".") || num2.contains(".")) {
+            return String.valueOf(Double.parseDouble(num1) - Double.parseDouble(num2));
+        } else return String.valueOf(Long.parseLong(num1) - Long.parseLong(num2));
     }
 
 }

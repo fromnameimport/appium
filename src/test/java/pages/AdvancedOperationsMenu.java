@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
+
 public class AdvancedOperationsMenu extends TestBase {
     static WebElement advancedPad = driver.findElement(By.id("pad_advanced"));
     static WebElement percent = driver.findElement(By.id("op_pct"));
@@ -31,12 +33,27 @@ public class AdvancedOperationsMenu extends TestBase {
         wait.until(ExpectedConditions.visibilityOf(advancedPad));
     }
 
+    //getters
+
+
     //actions
     public static void changeDegRadMode() {
         degRadModeSwitchButton.click();
     }
     public static void changeInvMode() {
         inverseSwitchButton.click();
+    }
+    public static void isInverseSwitched() {
+        ArrayList<String> inverted = new ArrayList<>();
+        inverted.add(driver.findElement(By.id("fun_arcsin")).getText());
+        inverted.add(driver.findElement(By.id("fun_arccos")).getText());
+        inverted.add(driver.findElement(By.id("fun_arcstan")).getText());
+        inverted.add(driver.findElement(By.id("fun_exp")).getText());
+        inverted.add(driver.findElement(By.id("fun_10pow")).getText());
+        inverted.add(driver.findElement(By.id("op_sqr")).getText());
+        for (String s : inverted) {
+            System.out.println(s);
+        }
     }
     public static void enterAdvancedOperator(String operator) {
         switch (operator) {

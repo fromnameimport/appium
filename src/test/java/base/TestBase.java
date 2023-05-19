@@ -46,7 +46,7 @@ public class TestBase {
             driver.quit();
         }
     }
-    public void swipe (String direction) {
+    public static void swipe (String direction) {
         dimension = driver.manage().window().getSize();
         int startX = 0;
         int endX = 0;
