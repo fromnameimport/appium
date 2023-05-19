@@ -32,7 +32,39 @@ public class AdvancedOperationsMenu extends TestBase {
     }
 
     //actions
-    public void changeDegRadMode() {
+    public static void changeDegRadMode() {
         degRadModeSwitchButton.click();
+    }
+    public static void changeInvMode() {
+        inverseSwitchButton.click();
+    }
+    public static void enterAdvancedOperator(String operator) {
+        switch (operator) {
+            case "%": percent.click(); break;
+            case "sqrt": sqrt.click(); break;
+            case "pow": power.click(); break;
+            case  "factorial": factorial.click(); break;
+        }
+    }
+    public static void useFunction(String function) {
+        switch (function) {
+            case "ln": natLogarithm.click(); break;
+            case "log": logarithm.click(); break;
+            case "sin": sinus.click(); break;
+            case "cos": cosine.click(); break;
+            case "tan": tangent.click(); break;
+        }
+    }
+    public static void enterConstant(String constant) {
+        switch (constant) {
+            case "pi": piNum.click(); break;
+            case "e": eNum.click(); break;
+        }
+    }
+    public static void enterBrackets(String rightOrLeft) {
+        switch (rightOrLeft) {
+            case "right": rParen.click(); break;
+            case "left": lParen.click(); break;
+        }
     }
 }

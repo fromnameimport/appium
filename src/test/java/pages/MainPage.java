@@ -1,10 +1,14 @@
 package pages;
 
 import base.TestBase;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class MainPage extends TestBase {
     static WebElement display = driver.findElement(By.id("display"));
@@ -44,12 +48,20 @@ public class MainPage extends TestBase {
     }
 
     //navigation
-    public static void openAdvancedOperationsPad() {
+    public static void openAdvancedOperations() {
         advancedOperationsMenu.click();
         AdvancedOperationsMenu.waitForPageVisibility();
     }
+    public static void closeAdvancedOperations() {
+        digit7.click();
+        MainPage.waitForPageVisibility();
+    }
     public static void openMoreOptionsMenu() {
         kebabMenu.click();
+        MoreOptionsMenu.waitForPageVisibility();
+    }
+    public static void closeMoreOptionsMenu() {
+        digit7.click();
         MoreOptionsMenu.waitForPageVisibility();
     }
 
@@ -57,7 +69,47 @@ public class MainPage extends TestBase {
     public static String getCurrentMode() {
         return currentMode.getText();
     }
+    public static String getFormula() { return formula.getText();}
     public static String getCalculusResult() {
         return result.getText();
     }
+
+    //actions
+    public static void enterDigit(String digit) {
+        String[] split = digit.split("");
+        for (String s : split) {
+            switch (s) {
+                case "0": digit0.click(); break;
+                case "1": digit1.click(); break;
+                case "2": digit2.click(); break;
+                case "3": digit3.click(); break;
+                case "4": digit4.click(); break;
+                case "5": digit5.click(); break;
+                case "6": digit6.click(); break;
+                case "7": digit7.click(); break;
+                case "8": digit8.click(); break;
+                case "9": digit9.click(); break;
+                case ".": decPoint.click(); break;
+                case "-": sub.click(); break;
+            }
+            System.out.println(s);
+        }
+    }
+    public static void enterBasicOperator(String operator) {
+        switch (operator) {
+            case "+": add.click(); break;
+            case "-": sub.click(); break;
+            case "*": mul.click(); break;
+            case "/": div.click(); break;
+        }
+    }
+    public static void equals() { equal.click(); }
+    public static void eraseDigitFromFormula() { delete.click(); }
+    public static void eraseCompletely() {
+        actions.press(PointOption.point(delete.getLocation()))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
+                .release()
+                .perform();
+    }
+
 }
