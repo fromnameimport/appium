@@ -43,17 +43,13 @@ public class AdvancedOperationsMenu extends TestBase {
     public static void changeInvMode() {
         inverseSwitchButton.click();
     }
-    public static void isInverseSwitched() {
-        ArrayList<String> inverted = new ArrayList<>();
-        inverted.add(driver.findElement(By.id("fun_arcsin")).getText());
-        inverted.add(driver.findElement(By.id("fun_arccos")).getText());
-        inverted.add(driver.findElement(By.id("fun_arcstan")).getText());
-        inverted.add(driver.findElement(By.id("fun_exp")).getText());
-        inverted.add(driver.findElement(By.id("fun_10pow")).getText());
-        inverted.add(driver.findElement(By.id("op_sqr")).getText());
-        for (String s : inverted) {
-            System.out.println(s);
-        }
+    public static void waitForInverseModeSwitch() {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arcsin"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arccos"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arctan"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_exp"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_10pow"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("op_sqr"))));
     }
     public static void enterAdvancedOperator(String operator) {
         switch (operator) {

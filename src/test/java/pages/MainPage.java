@@ -58,11 +58,9 @@ public class MainPage extends TestBase {
     }
     public static void openMoreOptionsMenu() {
         kebabMenu.click();
-        MoreOptionsMenu.waitForPageVisibility();
     }
     public static void closeMoreOptionsMenu() {
         digit7.click();
-        MoreOptionsMenu.waitForPageVisibility();
     }
 
     //getters
@@ -71,7 +69,10 @@ public class MainPage extends TestBase {
     }
     public static String getFormula() { return formula.getText();}
     public static String getCalculusResult() {
-        return result.getText();
+        if (result.getText().contains("−")) {
+            return result.getText().replace(",", "").replace("−", "-");
+        }
+        return result.getText().replace(",", "");
     }
 
     //actions
@@ -90,7 +91,11 @@ public class MainPage extends TestBase {
                 case "8": digit8.click(); break;
                 case "9": digit9.click(); break;
                 case ".": decPoint.click(); break;
-                case "-": sub.click(); break;
+                case "-":
+                    if (MainPage.getFormula().endsWith("−")) {
+                        add.click();
+                    } else sub.click();
+                    break;
             }
         }
     }
@@ -110,12 +115,4 @@ public class MainPage extends TestBase {
                 .release()
                 .perform();
     }
-
-    //operations
-    public static String subtract(String num1, String num2) {
-        if (num1.contains(".") || num2.contains(".")) {
-            return String.valueOf(Double.parseDouble(num1) - Double.parseDouble(num2));
-        } else return String.valueOf(Long.parseLong(num1) - Long.parseLong(num2));
-    }
-
 }

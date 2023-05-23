@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeTest;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.Duration;
 
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
@@ -98,5 +99,43 @@ public class TestBase {
                         .perform();
                 break;
         }
+    }
+    public static String calcForAssert(String num1, String num2, String operator) {
+        String expectedResult = "";
+        if (num1.contains(".") || num2.contains(".")) {
+            switch (operator) {
+                case "+": expectedResult = String.valueOf(Double.parseDouble(num1) + Double.parseDouble(num2)); break;
+                case "-": expectedResult = String.valueOf(Double.parseDouble(num1) - Double.parseDouble(num2)); break;
+                case "*":
+                    if (num1.equals("0") || num2.equals("0")) {
+                        expectedResult = "0";
+                    } else expectedResult = String.valueOf(Double.parseDouble(num1) * Double.parseDouble(num2));
+                    break;
+                case "/":
+                    if (num2.equals("0.0") || num2.equals("0")) {
+                        expectedResult = "";
+                    } else if (num1.equals("0")) {
+                        expectedResult = "0";
+                    } else {
+                        expectedResult = String.valueOf(Double.parseDouble(num1) / Double.parseDouble(num2));
+                    }
+                    break;
+            }
+        } else {
+            switch (operator) {
+                case "+": expectedResult = String.valueOf(Long.parseLong(num1) + Long.parseLong(num2)); break;
+                case "-": expectedResult = String.valueOf(Long.parseLong(num1) - Long.parseLong(num2)); break;
+                case "*": expectedResult = String.valueOf(Long.parseLong(num1) * Long.parseLong(num2)); break;
+                case "/":
+                    if (num2.equals("0.0") || num2.equals("0")) {
+                        expectedResult = "";
+                    } else if (num1.equals("0")) {
+                        expectedResult = "0";
+                    } else expectedResult = String.valueOf(Double.parseDouble(num1) / Double.parseDouble(num2));;
+                    break;
+            }
+
+        }
+        return expectedResult;
     }
 }
