@@ -1,6 +1,7 @@
 package pages;
 
 import base.TestBase;
+import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
@@ -110,9 +111,8 @@ public class MainPage extends TestBase {
     public static void equals() { equal.click(); }
     public static void eraseDigitFromFormula() { delete.click(); }
     public static void eraseCompletely() {
-        actions.press(PointOption.point(delete.getLocation()))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
-                .release()
-                .perform();
+        actions.longPress(PointOption.point(delete.getLocation()))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+                .release();
     }
 }

@@ -1,29 +1,25 @@
 package base;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.Duration;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
-import static java.time.Duration.ofMillis;
 
 public class TestBase {
-    public static AndroidDriver driver;
+    public static AppiumDriver driver;
     public static WebDriverWait wait;
-    public static AndroidTouchAction actions;
+    public static TouchAction actions;
     public static Dimension dimension;
 
     public static void initialization() throws MalformedURLException {
@@ -39,7 +35,7 @@ public class TestBase {
 
 
         driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
-        actions = new AndroidTouchAction(driver);
+        actions = new TouchAction((PerformsTouchActions) driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     public static void tearDown() {
@@ -58,7 +54,7 @@ public class TestBase {
                 startY = (dimension.height / 2);
                 startX = (int) (dimension.width * 0.90);
                 endX = (int) (dimension.width * 0.05);
-                actions = new AndroidTouchAction(driver)
+                actions = new TouchAction((PerformsTouchActions) driver)
                         .press(point(startX, startY))
                         .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                         .moveTo(point(endX, startY))
@@ -69,7 +65,7 @@ public class TestBase {
                 startY = (int) (dimension.height / 2);
                 startX = (int) (dimension.width * 0.1);
                 endX = (int) (dimension.width * 0.90);
-                actions = new AndroidTouchAction(driver);
+                actions = new TouchAction((PerformsTouchActions) driver);
                 actions.press(point(startX, startY))
                         .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                         .moveTo(point(endX, startY))
@@ -80,7 +76,7 @@ public class TestBase {
                 startY = (int) (dimension.height * 0.1);
                 startX = (int) (dimension.width / 2);
                 endY = (int) (dimension.width * 0.90);
-                actions = new AndroidTouchAction(driver)
+                actions = new TouchAction((PerformsTouchActions) driver)
                         .press(point(startX, startY))
                         .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                         .moveTo(point(endX, endY))
@@ -91,7 +87,7 @@ public class TestBase {
                 startY = (int) (dimension.height * 0.90);
                 startX = (int) (dimension.width / 2);
                 endY = (int) (dimension.width * 0.1);
-                actions = new AndroidTouchAction(driver);
+                actions = new TouchAction((PerformsTouchActions) driver);
                 actions.press(point(startX, startY))
                         .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                         .moveTo(point(endX, endY))

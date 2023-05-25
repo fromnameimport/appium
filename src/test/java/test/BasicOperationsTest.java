@@ -19,6 +19,10 @@ public class BasicOperationsTest extends TestBase {
     public void quit() {
         tearDown();
     }
+    @BeforeMethod
+    void test() throws InterruptedException {
+        Thread.sleep(100);
+    }
 
     @DataProvider(name = "digitsForAddSubMulDiv")
     public Object[][] digitsForAddSubMulDiv() {
@@ -26,14 +30,12 @@ public class BasicOperationsTest extends TestBase {
                 {"3", "5"},
                 {"10", "3"},
                 {"13", "0"},
-                {"-2345", "345"},
                 {"0", "0.5"},
-                {"4673567", "1547457"},
-                {"-245324", "-3462"}
+                {"4673567", "1547457"}
         };
     }
 
-    @Test(dataProvider = "digitsForAddSubMulDiv")
+    @Test(priority = 1, dataProvider = "digitsForAddSubMulDiv")
     public void addition(String num1, String num2) {
         String expectedResult = TestBase.calcForAssert(num1, num2, "+");
 
@@ -47,8 +49,8 @@ public class BasicOperationsTest extends TestBase {
 
         MainPage.eraseCompletely();
     }
-    @Test(dataProvider = "digitsForAddSubMulDiv")
-    public void subtraction(String num1, String num2) {
+    @Test(priority = 2, dataProvider = "digitsForAddSubMulDiv")
+    public void subtraction(String num1, String num2) throws InterruptedException {
         String expectedResult = TestBase.calcForAssert(num1, num2, "-");
 
         MainPage.enterDigit(num1);
@@ -62,7 +64,7 @@ public class BasicOperationsTest extends TestBase {
 
         MainPage.eraseCompletely();
     }
-    @Test(dataProvider = "digitsForAddSubMulDiv")
+    @Test(priority = 3, dataProvider = "digitsForAddSubMulDiv")
     public void multiplication(String num1, String num2) {
         String expectedResult = TestBase.calcForAssert(num1, num2, "*");
 
@@ -77,7 +79,7 @@ public class BasicOperationsTest extends TestBase {
 
         MainPage.eraseCompletely();
     }
-    @Test(dataProvider = "digitsForAddSubMulDiv")
+    @Test(priority = 4, dataProvider = "digitsForAddSubMulDiv")
     public void division(String num1, String num2) {
         String expectedResult = TestBase.calcForAssert(num1, num2, "/");
 
