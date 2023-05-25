@@ -44,6 +44,7 @@ public class ModeTest extends TestBase {
         AdvancedOperationsMenu.waitForPageVisibility();
         AdvancedOperationsMenu.changeInvMode();
         AdvancedOperationsMenu.waitForInverseModeSwitch();
+        AdvancedOperationsMenu.changeInvMode();
         TestBase.swipe("RIGHT");
     }
 }

@@ -1,10 +1,13 @@
 package pages;
 
 import base.TestBase;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidTouchAction;
+import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,7 +16,7 @@ import java.time.Duration;
 
 public class MainPage extends TestBase {
     static WebElement display = driver.findElement(By.id("display"));
-    static WebElement result = display.findElement(By.id("result"));
+    static WebElement result = driver.findElement(By.id("result"));
     static WebElement formula = driver.findElement(By.id("formula"));
     // menus
     static WebElement kebabMenu = driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc=\"More options\"]"));
@@ -45,35 +48,36 @@ public class MainPage extends TestBase {
 
     // waits
     public static void waitForPageVisibility() {
-        wait.until(ExpectedConditions.visibilityOf(display));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("display"))));
     }
 
     //navigation
     public static void openAdvancedOperations() {
-        advancedOperationsMenu.click();
+        driver.findElement(By.id("pad_advanced")).click();
         AdvancedOperationsMenu.waitForPageVisibility();
     }
     public static void closeAdvancedOperations() {
-        digit7.click();
+        driver.findElement(By.id("digit_7")).click();
         MainPage.waitForPageVisibility();
     }
     public static void openMoreOptionsMenu() {
-        kebabMenu.click();
+        driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc=\"More options\"]")).click();
     }
     public static void closeMoreOptionsMenu() {
-        digit7.click();
+        driver.findElement(By.id("digit_7")).click();
     }
 
     //getters
     public static String getCurrentMode() {
-        return currentMode.getText();
+        return driver.findElement(By.id("mode")).getText();
     }
-    public static String getFormula() { return formula.getText();}
+    public static String getFormula() { return driver.findElement(By.id("formula")).getText();}
     public static String getCalculusResult() {
-        if (result.getText().contains("−")) {
-            return result.getText().replace(",", "").replace("−", "-");
-        }
-        return result.getText().replace(",", "");
+//        if (driver.findElement(By.id("result")).getText().contains("−")) {
+//            return driver.findElement(By.id("result")).getText().replace(",", "").replace("−", "-");
+//        }
+//        return driver.findElement(By.id("result")).getText().replace(",", "");
+        return driver.findElement(By.id("result")).getText().replace(",", "").replace("−", "-");
     }
 
     //actions
@@ -81,38 +85,46 @@ public class MainPage extends TestBase {
         String[] split = digit.split("");
         for (String s : split) {
             switch (s) {
-                case "0": digit0.click(); break;
-                case "1": digit1.click(); break;
-                case "2": digit2.click(); break;
-                case "3": digit3.click(); break;
-                case "4": digit4.click(); break;
-                case "5": digit5.click(); break;
-                case "6": digit6.click(); break;
-                case "7": digit7.click(); break;
-                case "8": digit8.click(); break;
-                case "9": digit9.click(); break;
-                case ".": decPoint.click(); break;
+                case "0": driver.findElement(By.id("digit_0")).click(); break;
+                case "1": driver.findElement(By.id("digit_1")).click(); break;
+                case "2": driver.findElement(By.id("digit_2")).click(); break;
+                case "3": driver.findElement(By.id("digit_3")).click(); break;
+                case "4": driver.findElement(By.id("digit_4")).click(); break;
+                case "5": driver.findElement(By.id("digit_5")).click(); break;
+                case "6": driver.findElement(By.id("digit_6")).click(); break;
+                case "7": driver.findElement(By.id("digit_7")).click(); break;
+                case "8": driver.findElement(By.id("digit_8")).click(); break;
+                case "9": driver.findElement(By.id("digit_9")).click(); break;
+                case ".": driver.findElement(By.id("dec_point")).click(); break;
                 case "-":
                     if (MainPage.getFormula().endsWith("−")) {
-                        add.click();
-                    } else sub.click();
+                        driver.findElement((By.id("op_add"))).click();
+                    } else driver.findElement(By.id("op_sub")).click();
                     break;
             }
         }
     }
     public static void enterBasicOperator(String operator) {
         switch (operator) {
-            case "+": add.click(); break;
-            case "-": sub.click(); break;
-            case "*": mul.click(); break;
-            case "/": div.click(); break;
+            case "+": driver.findElement((By.id("op_add"))).click(); break;
+            case "-": driver.findElement(By.id("op_sub")).click(); break;
+            case "*": driver.findElement(By.id("op_mul")).click(); break;
+            case "/": driver.findElement(By.id("op_div")).click(); break;
         }
     }
-    public static void equals() { equal.click(); }
-    public static void eraseDigitFromFormula() { delete.click(); }
+    public static void equals() { driver.findElement(By.id("eq")).click(); }
+    public static void eraseDigitFromFormula() { driver.findElement(By.id("del")).click(); }
     public static void eraseCompletely() {
-        actions.longPress(PointOption.point(delete.getLocation()))
+        PointOption pointOption = PointOption.point(driver.findElement(By.id("del")).getLocation());
+        actions.longPress(pointOption)
                 .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
                 .release();
+//        try {
+//            actions.longPress(PointOption.point(driver.findElement(By.id("del")).getLocation()))
+//                    .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+//                    .release();
+//        } catch (NoSuchElementException e) {
+//            driver.findElement(AppiumBy.accessibilityId("clear")).click();
+//        }
     }
 }

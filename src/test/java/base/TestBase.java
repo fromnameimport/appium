@@ -132,6 +132,8 @@ public class TestBase {
             }
 
         }
-        return expectedResult;
+        if (expectedResult.startsWith("-")) {
+            return "−" + expectedResult.substring(1);
+        } else return expectedResult;
     }
 }

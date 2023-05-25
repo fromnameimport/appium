@@ -83,7 +83,7 @@ public class AdvancedOperationsTest extends TestBase {
         MainPage.enterDigit("60");
         MainPage.equals();
 
-        Assert.assertEquals(MainPage.getCalculusResult(), "-0.304810621102");
+        Assert.assertEquals(MainPage.getCalculusResult(), "−0.304810621102");
         MainPage.eraseCompletely();
     }
     @Test

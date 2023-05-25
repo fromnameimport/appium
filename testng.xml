@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test Suite">
-    <test name="Test 1">
+<suite name="Google Mobile Calculator">
+    <test name="Basic Operations">
+        <classes>
+            <class name="test.BasicOperationsTest"/>
+        </classes>
+    </test>
+    <test name="Advanced Operations">
+        <classes>
+            <class name="test.AdvancedOperationsTest"/>
+        </classes>
+    </test>
+    <test name="History and mode functionality">
         <classes>
             <class name="test.HistoryFunctionalityTest"/>
             <class name="test.ModeTest"/>
-            <class name="test.AdvancedOperationsTest"/>
-            <class name="test.BasicOperationsTest"/>
         </classes>
     </test>
 </suite>

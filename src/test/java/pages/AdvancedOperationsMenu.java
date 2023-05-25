@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.ArrayList;
-
 public class AdvancedOperationsMenu extends TestBase {
     static WebElement advancedPad = driver.findElement(By.id("pad_advanced"));
     static WebElement percent = driver.findElement(By.id("op_pct"));
@@ -30,7 +28,7 @@ public class AdvancedOperationsMenu extends TestBase {
 
     // waits
     public static void waitForPageVisibility() {
-        wait.until(ExpectedConditions.visibilityOf(advancedPad));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("pad_advanced"))));
     }
 
     //getters
@@ -38,12 +36,13 @@ public class AdvancedOperationsMenu extends TestBase {
 
     //actions
     public static void changeDegRadMode() {
-        degRadModeSwitchButton.click();
+        driver.findElement(By.id("toggle_mode")).click();
     }
     public static void changeInvMode() {
-        inverseSwitchButton.click();
+        driver.findElement(By.id("toggle_inv")).click();
     }
-    public static void waitForInverseModeSwitch() {
+    public static void waitForInverseModeSwitch() throws InterruptedException {
+        Thread.sleep(500);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arcsin"))));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arccos"))));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("fun_arctan"))));
@@ -53,31 +52,31 @@ public class AdvancedOperationsMenu extends TestBase {
     }
     public static void enterAdvancedOperator(String operator) {
         switch (operator) {
-            case "%": percent.click(); break;
-            case "sqrt": sqrt.click(); break;
-            case "pow": power.click(); break;
-            case  "factorial": factorial.click(); break;
+            case "%": driver.findElement(By.id("op_pct")).click(); break;
+            case "sqrt": driver.findElement(By.id("op_sqrt")).click(); break;
+            case "pow": driver.findElement(By.id("op_pow")).click(); break;
+            case  "factorial": driver.findElement(By.id("op_fact")).click(); break;
         }
     }
     public static void useFunction(String function) {
         switch (function) {
-            case "ln": natLogarithm.click(); break;
-            case "log": logarithm.click(); break;
-            case "sin": sinus.click(); break;
-            case "cos": cosine.click(); break;
-            case "tan": tangent.click(); break;
+            case "ln": driver.findElement(By.id("fun_ln")).click(); break;
+            case "log": driver.findElement(By.id("fun_log")).click(); break;
+            case "sin": driver.findElement(By.id("fun_sin")).click(); break;
+            case "cos": driver.findElement(By.id("fun_cos")).click(); break;
+            case "tan": driver.findElement(By.id("fun_tan")).click(); break;
         }
     }
     public static void enterConstant(String constant) {
         switch (constant) {
-            case "pi": piNum.click(); break;
-            case "e": eNum.click(); break;
+            case "pi": driver.findElement(By.id("const_pi")).click(); break;
+            case "e": driver.findElement(By.id("const_e")).click(); break;
         }
     }
     public static void enterBrackets(String rightOrLeft) {
         switch (rightOrLeft) {
-            case "right": rParen.click(); break;
-            case "left": lParen.click(); break;
+            case "right": driver.findElement(By.id("rparen")).click(); break;
+            case "left": driver.findElement(By.id("lparen")).click(); break;
         }
     }
 }
